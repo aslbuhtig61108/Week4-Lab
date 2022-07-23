@@ -1,7 +1,9 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class Part2 {
@@ -60,15 +62,93 @@ public class Part2 {
 		}
 		
 		// write and test a method that takes a set of strings and returns a list of the same strings
+		List<String> finalList = convertSetToList(set); // Note: no longer need to declare the list from the method
+		// System.out.println(finalList); // this eliminates extra lines of code
 		
+		for (String listString : finalList) {
+			System.out.println(listString);
+		}
+		
+		// write and test a method that takes a set of integers and returns a new set of integers containing only even numbers from the original set
+		Set<Integer> integerSet = new HashSet<Integer>();
+		integerSet.add(3);
+		integerSet.add(4);
+		integerSet.add(8);
+		integerSet.add(33);
+		
+		Set<Integer> extractedEvens = extractEvens(integerSet);
+		for (Integer number : extractedEvens) {
+			System.out.println(number);
+		}
+		
+		// create a map of string and string and add 3 items to it where the key of each is a word and the value is the definition of the word
+		Map<String, String> dictionary = new HashMap<String, String>();
+		dictionary.put("jurisdiction", "the official power to make legal decisions and judgments.");
+		dictionary.put("instantiate", "represent as or by an instance.");
+		dictionary.put("explicitly", "in a clear and detailed manner, leaving no room for confusion or doubt.");
+		
+		// write and test a method that takes a Map<String, String> and a string and returns the value for a key in the map that matches the 
+		// string parameter (i.e., like a language dictionary lookup)
+		String value = lookupValue(dictionary, "instantiate");
+		System.out.println(value);
+				
+		// write and test a method that takes a List<String> and returns a MapCharacter, Integer> containing a count of all the strings that start
+		// with a given character
+		Map<Character, Integer> counts = countStartingLetters(finalList);
+		for (Character character : counts.keySet()) {
+			System.out.println(character + " - " + counts.get(character));
+		}
 		
 		
 	}
 	
 	// LIST OF METHODS
 	
-	public static List<String> returnList(Set<String> set1) {
+	public static Map<Character, Integer> countStartingLetters(List<String> xlist) {
+		Map<Character, Integer> results = new HashMap<Character, Integer>();
+		// int counter = 0;
+		for (String string : xlist) {
+			char c = string.charAt(0);
+			if (results.get(c) == null) {
+				results.put(c, 1);
+			} else {
+				results.put(c,  results.get(c) + 1);
+			}
+		}
+			
+		return results;
+		}
 		
+		 
+	
+	
+	public static String lookupValue (Map<String, String> map, String string) {
+		for (String key : map.keySet()) {
+			if (key.equals(string)) {
+				return map.get(key);
+			}
+		}
+		return "";
+	}
+	
+	
+	public static Set<Integer> extractEvens(Set<Integer> set) {
+		Set<Integer> results = new HashSet<Integer>();
+			for (Integer number : set) {
+				if (number % 2 == 0) {
+					results.add(number);
+				}
+			}
+		return results;
+	}
+	
+	
+	public static List<String> convertSetToList(Set<String> set) {
+		List<String> results = new ArrayList<String>();
+			for (String string : set) {
+				results.add(string);
+			}
+		return results;
 	}
 	
 	public static Set<String> findAllThatStartWith(Set<String> set, char c) {
